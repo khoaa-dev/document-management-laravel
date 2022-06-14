@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'Client\HomeController@index');
+
+Route::get('/home', 'Client\HomeController@index')->name('home');
+
+Route::get('/login', 'Client\HomeController@loginView')->name('loginView');
