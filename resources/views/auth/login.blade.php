@@ -11,7 +11,8 @@
             <div class="row">
                 <div class="col-4"></div>
                 <div class="col-4">
-                    <form>
+                    <form method="POST" onsubmit="{{ route('login') }}">
+                        @csrf
                         <!-- Ma Can Bo input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="maCanBo">Mã cán bộ</label>
@@ -41,7 +42,7 @@
                         </div>
                       
                         <!-- Submit button -->
-                        <button type="button" class="btn btn-primary btn-block mb-4">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Đăng nhập</button>
                       
                         <!-- Register buttons -->
                         {{-- <div class="text-center">

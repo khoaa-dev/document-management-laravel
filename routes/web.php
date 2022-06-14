@@ -20,3 +20,5 @@ Route::get('/', 'Client\HomeController@index');
 Route::get('/home', 'Client\HomeController@index')->name('home');
 
 Route::get('/login', 'Client\HomeController@loginView')->name('loginView');
+
+Route::post('/login', 'Auth\LoginController@postLogin')->name('login');
