@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -64,5 +65,10 @@ class LoginController extends Controller
 		// 	Session::flash('error', 'Email hoặc mật khẩu không đúng!');
 		// 	return redirect('auth.login');
 		// }
+    }
+
+    public function logout() {
+        Session::forget('canBo');
+        return redirect('home');
     }
 }

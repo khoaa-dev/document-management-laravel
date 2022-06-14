@@ -23,6 +23,9 @@
     <!-- header -->
     @include("includes.footer")
 
+
+    @yield('js')
     <script src="{{ asset('public/js/app.js') }}"></script>
+
 </body>
 </html>
