@@ -58,7 +58,7 @@
                                     @endif
                                         
                                     @if (Session::get('canBo')->maQuyen == 2 || Session::get('canBo')->maQuyen == 3)
-                                        <a class="dropdown-item" href="">
+                                        <a class="dropdown-item" href="{{ route('come-docs-management') }}">
                                             {{ __('Quản lý văn bản') }}
                                         </a>    
                                     @endif

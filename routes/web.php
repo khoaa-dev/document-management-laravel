@@ -24,3 +24,11 @@ Route::get('/login', 'Client\HomeController@loginView')->name('loginView');
 Route::post('/login', 'Auth\LoginController@postLogin')->name('login');
 
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/docs', 'Client\DocsController@vanBanDen')->name('come-docs-management');
+
+Route::get('/docs/create', 'Client\ComeDocsController@create')->name('create-come-docs');
+
+Route::get('/outdocs', 'Client\DocsController@vanBanDi')->name('out-docs-management');
+
+Route::get('/outdocs/create', 'Client\OutDocsController@create')->name('create-out-docs');
