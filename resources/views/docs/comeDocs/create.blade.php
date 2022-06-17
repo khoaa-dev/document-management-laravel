@@ -28,17 +28,17 @@
                 </div>
                 <div class="form-group">
                     <label for="price">Ngày ban hành:</label>
-                    <input type="text" id="datepicker" class="date form-control" name="from_date">
+                    <input type="text" id="datepicker-taoVBDen" class="date form-control" name="from_date">
                 </div>
                 <div class="form-group">
                     <label for="price">Ngày hết hiệu lực:</label>
-                    <input type="text" id="datepicker2" class="date form-control" name="from_date">
+                    <input type="text" id="datepicker2-taoVBDen" class="date form-control" name="from_date">
                 </div>
         
                 
                 <div class="form-group">
-                    <label for="categoryId">Chọn loại văn bản:</label>
-                    <select name="categoryId" id="categoryId" class="custom-select">
+                    <label for="loaiVanBan">Chọn loại văn bản:</label>
+                    <select name="loaiVanBan" id="categoryId" class="custom-select">
                         <option value="">Chọn</option>
                         @foreach ($loaiVanBans as $loaiVanBan)
                             <option value="{{ $loaiVanBan->maLoaiVB }}">{{ $loaiVanBan->tenLoaiVB }}</option>
@@ -47,17 +47,18 @@
 
                 </div>
                 <div class="form-group">
+                    @csrf
                     <p>Chọn đơn vị gửi:</p>
-                    <label for="categoryId">Loại đơn vị:</label>
-                    <select name="categoryId" id="categoryId" class="custom-select">
+                    <label for="loaiDonVi-tao">Loại đơn vị:</label>
+                    <select name="loaiDonVi-tao" id="loaiDonVi-tao" class="custom-select">
                         <option value="">Chọn</option>
                         @foreach ($loaiDonVis as $loaiDonVi)
                             <option value="{{ $loaiDonVi->maLoaiDV }}">{{ $loaiDonVi->tenLoaiDV }}</option>
                         @endforeach
                     </select>
 
-                    <label for="categoryId">Đơn vị:</label>
-                    <select name="categoryId" id="categoryId" class="custom-select">
+                    <label for="donVi-tao">Đơn vị:</label>
+                    <select name="donVi-tao" id="donVi-tao" class="custom-select">
                         <option value="">Chọn</option>
                     </select>
 
@@ -81,11 +82,12 @@
 @section('js')
 <script type="text/javascript">
 
-    $('#datepicker').datepicker({  
+    $('#datepicker-taoVBDen').datepicker({  
         dateFormat: 'yy-mm-dd'
     });  
-    $('#datepicker2').datepicker({  
+    $('#datepicker2-taoVBDen').datepicker({  
         dateFormat: 'yy-mm-dd'
     });  
+
 </script> 
 @endsection

@@ -18,8 +18,9 @@
         {{-- Filter by Loai Don Vi --}}
         <div class="col-4">
             <div class="form-group" style="font-size: 16px">
+                @csrf
                 <label>Loại đơn vị</label>
-                <select id="input11008" name="nationalityId" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
+                <select id="loaiDonVi" name="nationalityId" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
                                                 
                     <option value="">Chọn</option>
                     @foreach ($loaiDonVis as $loaiDonVi)
@@ -32,7 +33,7 @@
         <div class="col-4">
             <div class="form-group" style="font-size: 16px">
                 <label>Đơn vị gửi</label>
-                <select id="input11008" name="nationalityId" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
+                <select id="donVi" name="nationalityId" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
                                                 
                     <option value="">Chọn</option>
                 </select>
@@ -45,14 +46,14 @@
         <div class="col-6">
             <div class="form-group" style="font-size: 16px">
                 <p style="margin-bottom: 8px">Từ ngày</p>
-                <input type="text" id="datepicker" class="date form-control" name="from_date">
+                <input type="text" id="datepicker-xemVBDen" class="date form-control" name="from_date">
             </div>
 
         </div>
         <div class="col-6">
             <div class="form-group" style="font-size: 16px">
                 <p style="margin-bottom: 8px">Đến ngày</p>
-                <input type="text" id="datepicker2" class="date form-control" name="from_date">
+                <input type="text" id="datepicker2-xemVBDen" class="date form-control" name="from_date">
             </div>
         </div>
     </div>
@@ -113,11 +114,14 @@
 @section('js')
 <script type="text/javascript">
 
-    $('#datepicker').datepicker({  
+    $('#datepicker-xemVBDen').datepicker({  
         dateFormat: 'yy-mm-dd'
     });  
-    $('#datepicker2').datepicker({  
+    $('#datepicker2-xemVBDen').datepicker({  
         dateFormat: 'yy-mm-dd'
     });  
+
+
+    
 </script> 
 @endsection
