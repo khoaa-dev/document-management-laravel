@@ -21,6 +21,7 @@ class CreateVBDiDVNhanTable extends Migration
             $table->char('trangThai');
             $table->date('ngayGuiThongBao');
             $table->date('ngayCapNhat');
+            $table->primary(['maVanBanDi','maDonViNhan']);
             $table->timestamps();
         });
     }

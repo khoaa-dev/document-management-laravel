@@ -1,6 +1,11 @@
 @extends('docs.default')
 
 @section('docs-body')
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mt-3" style="font-family: 'Nunito Sans', sans-serif;font-size: 32px; text-align: center; color: #227DC7">VĂN BẢN ĐẾN</h1>
+        </div>
+    </div>
     <div class="row mt-4">
         {{-- Filter by Loai VB  --}}
         <div class="col-4">
@@ -83,7 +88,7 @@
         {{-- Lits document --}}
         <table class="table">
             <thead class="thead-dark">
-                <tr>
+                <tr style="text-align: center">
                     <th style="width: 10%" style="font-size: 18px">STT</th>
                     <th style="width: 30%" style="font-size: 18px">Tên file văn bản</th>
                     <th style="width: 16%" style="font-size: 18px">Ngày ban hành</th>
@@ -94,14 +99,13 @@
             <tbody>
 
                 @foreach ($vanBanDens as $vanBanDen)
-                    <tr>
+                    <tr style="text-align: center">
                         <th scope="row">{{++$i}}</th>
                         <td>{{$vanBanDen->tenFileVanBan}}</td>
                         <td>{{$vanBanDen->ngayBanHanh}}</td>
                         <td>{{$vanBanDen->ngayHetHieuLuc}}</td>
                         <td>
                             <button class="btn btn-info text-light" href="#">Xem chi tiết</button>
-                            <button class="btn btn-success" href="#">Sửa</button>
                             <button class="btn btn-danger" href="#">Xóa</button>
                         </td>
                     </tr>

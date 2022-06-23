@@ -41,3 +41,28 @@ Route::post('/loaiDonVi-VBDi', 'Client\OutDocsController@getDonVi')->name('getDo
 
 Route::post('/loaiDonVi-VBDen-tao', 'Client\ComeDocsController@getDonVi')->name('getDonVi-VBDen-tao');
 
+Route::post('/loaiDonVi-VBDi-tao', 'Client\OutDocsController@loadAjaxDonVi')->name('getDonVi-VBDi-tao');
+
+
+// Tao danh sach Van Ban Di
+Route::post('/DSDonViNhan', 'Client\OutDocsController@loadDanhSach')->name('loadDanhSach');
+
+Route::post('/themDonVi', 'Client\OutDocsController@addDonVi')->name('themDonVi');
+
+Route::post('/xoaDonVi', 'Client\OutDocsController@removeDonVi')->name('xoaDonVi');
+
+Route::post('/taoVanBanDi', 'Client\OutDocsController@store')->name('taoVanBanDi');
+
+// Xem chi tiet Van Ban Di
+Route::get('/detail/{id}', 'Client\OutDocsController@detail')->name('xemChiTiet');
+
+// Cap nhat noi dung Van Ban Di
+Route::post('/updateVBDi/{id}', 'Client\OutDocsController@update')->name('capNhatVBDi');
+
+// Xoa van ban di 
+Route::get('/deleteView/{id}', 'Client\OutDocsController@delete')->name('formXoa');
+
+Route::post('/delete/{id}', 'Client\OutDocsController@destroy')->name('xoaVanBanDi');
+
+Route::post('/init-session', 'FoodController@initSession')->name('initSession');
+

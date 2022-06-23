@@ -69,6 +69,7 @@ class LoginController extends Controller
 
     public function logout() {
         Session::forget('canBo');
+        Session::forget('maDonVis');
         return redirect('home');
     }
 }

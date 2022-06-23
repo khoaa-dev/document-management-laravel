@@ -37272,6 +37272,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./loadAjax */ "./resources/js/loadAjax.js");
 
+__webpack_require__(/*! ./outDocs */ "./resources/js/outDocs.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -37383,6 +37385,51 @@ $('#loaiDonVi-VBDi').on('change', function () {
     },
     success: function success(response) {
       $('#donVi-VBDi').html(response.data);
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/outDocs.js":
+/*!*********************************!*\
+  !*** ./resources/js/outDocs.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(".btn_taoDanhSachNhan").on("click", function () {
+  var _token = $('input[name="_token"]').val();
+
+  $.ajax({
+    url: "/document-management/init-session",
+    // url: "{{ route('initSession') }}",
+    method: "POST",
+    data: {
+      _token: _token
+    },
+    success: function success(data) {//dữ liệu nhận về
+    }
+  });
+}); //Load Ajax DonVi theo LoaiDonVi
+
+$('#VBDi-loaiDonVi').on('change', function () {
+  var id = $(this).val();
+
+  var _token = $('input[name="_token"]').val();
+
+  $('#VBDi-donVi').find('option').not(':first').remove();
+  $.ajax({
+    // url:"{{URL::to('/loaiDonVi-VBDen')}}",
+    url: '/document-management/loaiDonVi-VBDen-tao',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+      id: id,
+      _token: _token
+    },
+    success: function success(response) {
+      $('#VBDi-donVi').html(response.data);
     }
   });
 });
