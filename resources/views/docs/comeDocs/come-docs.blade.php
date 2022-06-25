@@ -63,16 +63,6 @@
         </div>
     </div>
 
-    {{-- Filter by name --}}
-    <div class="row mt-2">
-        <div class="col-12">
-            <div class="form-group" style="font-size: 16px">
-                <label for="nameDocument">Tên văn bản</label>
-                <input type="text" id="datepicker" class="date form-control" name="nameDocument" placeholder="Nhập tên văn bản">
-            </div>
-        </div>
-    </div>
-
 
     <div class="row mt-2">
         <div class="col-12 d-flex justify-content-end mb-2" >

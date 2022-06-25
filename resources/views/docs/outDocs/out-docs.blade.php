@@ -93,12 +93,13 @@
             <h1 class="mt-3" style="font-family: 'Nunito Sans', sans-serif;font-size: 32px; text-align: center; color: #227DC7">VĂN BẢN ĐI</h1>
         </div>
     </div>
+    {{-- Filter by Loai VB - DonVi  --}}
     <div class="row mt-4">
-        {{-- Filter by Loai VB  --}}
         <div class="col-4">
+            @csrf
             <div class="form-group" style="font-size: 16px">
                 <label>Loại văn bản</label>
-                <select id="input11008" name="nationalityId" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
+                <select id="filter_loaiVB" name="filter_loaiVB" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
                                                 
                     <option value="">Chọn</option>
                     @foreach ($loaiVanBans as $loaiVanBan)
@@ -110,9 +111,9 @@
         {{-- Filter by Loai Don Vi --}}
         <div class="col-4">
             <div class="form-group" style="font-size: 16px">
-                @csrf
+                
                 <label>Loại đơn vị</label>
-                <select id="loaiDonVi-VBDi" name="nationalityId" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
+                <select id="filter_loaiDV" name="filter_loaiDV" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
                                                 
                     <option value="">Chọn</option>
                     @foreach ($loaiDonVis as $loaiDonVi)
@@ -125,7 +126,7 @@
         <div class="col-4">
             <div class="form-group" style="font-size: 16px">
                 <label>Đơn vị gửi</label>
-                <select id="donVi-VBDi" name="nationalityId" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
+                <select id="filter_DVGui" name="filter_DVGui" style="width: 100%" class="form-control select2-hidden-accessible" data-msg-required="Bạn chưa chọn quốc tịch" data-select2-id="input11008" tabindex="-1" aria-hidden="true">
                                                 
                     <option value="">Chọn</option>
                 </select>
@@ -138,24 +139,14 @@
         <div class="col-6">
             <div class="form-group" style="font-size: 16px">
                 <p style="margin-bottom: 8px">Từ ngày</p>
-                <input type="text" id="datepicker-xemVBDi" class="date form-control" name="from_date">
+                <input type="text" id="fromDate_xemVBDi" class="date form-control" name="fromDate_xemVBDi">
             </div>
 
         </div>
         <div class="col-6">
             <div class="form-group" style="font-size: 16px">
                 <p style="margin-bottom: 8px">Đến ngày</p>
-                <input type="text" id="datepicker2-xemVBDi" class="date form-control" name="from_date">
-            </div>
-        </div>
-    </div>
-
-    {{-- Filter by name --}}
-    <div class="row mt-2">
-        <div class="col-12">
-            <div class="form-group" style="font-size: 16px">
-                <label for="nameDocument">Tên văn bản</label>
-                <input type="text" id="nameDocument" class="date form-control" name="nameDocument" placeholder="Nhập tên văn bản">
+                <input type="text" id="toDate_xemVBDi" class="date form-control" name="toDate_xemVBDi">
             </div>
         </div>
     </div>
@@ -173,7 +164,8 @@
     </div>
     <div class="">
         {{-- Lits document --}}
-        <table class="table">
+        <table class="table" id="table_DSVB">
+            
             <thead class="thead-dark">
                 <tr style="text-align: center">
                     <th style="width: 10%" style="font-size: 18px">STT</th>
@@ -217,11 +209,11 @@
 @section('js')
 <script type="text/javascript">
 
-    $('#datepicker-xemVBDi').datepicker({  
-        dateFormat: 'yy-mm-dd'
+    $('#fromDate_xemVBDi').datepicker({  
+        dateFormat: 'MM/DD/YYYY'
     });  
-    $('#datepicker2-xemVBDi').datepicker({  
-        dateFormat: 'yy-mm-dd'
+    $('#toDate_xemVBDi').datepicker({  
+        dateFormat: 'MM/DD/YYYY'
     });  
 
     // display a modal (small modal)
@@ -247,6 +239,76 @@
                 $('#loader').hide();
             }
             , timeout: 8000
+        })
+    });
+
+    //load DonVi theo LoaiDonVi
+    $('#filter_loaiDV').on('change', function () {
+    var id = $(this).val();
+    var _token = $('input[name="_token"]').val();
+    $('#donVi').find('option').not(':first').remove();
+
+    $.ajax({
+        // url:"{{URL::to('/loaiDonVi-VBDen')}}",
+        url:'/document-management/loaiDonVi-VBDen',
+        type:'POST',
+        dataType:'JSON',
+        data:{id:id, _token:_token},
+        success:function (response) {
+            $('#filter_DVGui').html(response.data);
+        }
+    })
+});
+
+    //filter by loaiVB
+    $('#filter_loaiVB').on('change', function (e) {
+        // e.preventDefault();
+        var maLoaiVB = $(this).val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url:'{{route("filterLoaiVB")}}',
+            type:'POST',
+            dataType:'JSON',
+            data:{maLoaiVB:maLoaiVB, _token:_token},
+            success:function (response) {
+                $('#table_DSVB tbody').html(response.data);
+            }
+        })
+    });
+
+    //filter by loaiVB
+    $('#filter_DVGui').on('change', function (e) {
+        // e.preventDefault();
+        var maDonViGui = $(this).val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url:'{{route("filterDonViGui")}}',
+            type:'POST',
+            dataType:'JSON',
+            data:{maDonViGui:maDonViGui, _token:_token},
+            success:function (response) {
+                $('#table_DSVB tbody').html(response.data);
+            }
+        })
+    });
+
+    //filter by loaiVB
+    $('#toDate_xemVBDi').on('change', function (e) {
+        // e.preventDefault();
+        var toDate = $(this).val();
+        var fromDate = $('#fromDate_xemVBDi').val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url:'{{route("filterToDate")}}',
+            type:'POST',
+            dataType:'JSON',
+            data:{toDate:toDate, fromDate:fromDate, _token:_token},
+            success:function (response) {
+                $('#table_DSVB tbody').html(response.data);
+            }
         })
     });
 </script> 

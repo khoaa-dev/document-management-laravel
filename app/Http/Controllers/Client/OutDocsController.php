@@ -275,4 +275,92 @@ class OutDocsController extends Controller
         
         return back();
     }
+
+    public function filterLoaiVB(Request $request) {
+        $maLoaiVB = $request->maLoaiVB;
+        $vanBanDis = DB::table('van_ban_di')->where('maLoaiVB', '=', $maLoaiVB)->get();
+        // $datas = DonVi::where('maLoaiDV', $id)->get();
+        $output = "";
+
+        $i = 0;
+
+        foreach($vanBanDis as $vanBanDi) {
+            $output .= '
+            <tr style="text-align: center">
+                <th scope="row">'.++$i.'</th>
+                <td>'.$vanBanDi->tenFileVanBan.'</td>
+                <td>'.$vanBanDi->ngayBanHanh.'</td>
+                <td>'.$vanBanDi->ngayHetHieuLuc.'</td>
+                <td>
+                    <a class="btn btn-info text-light" href="detail/'.$vanBanDi->maVanBanDi.'">Xem chi tiết</a>
+                    <a class="btn btn-danger" id="deleteButton" data-attr="deleteView/'.$vanBanDi->maVanBanDi.') }}" data-target="#myModal" data-toggle="modal">Xóa</a>
+                </td>
+            </tr>';
+        }
+
+        $datas = array(
+            'data' => $output
+        );
+
+        return json_encode($datas);
+    }
+
+    public function filterDonViGui(Request $request) {
+        $maDonViGui = $request->maDonViGui;
+        $vanBanDis = DB::table('van_ban_di')->where('maDonViGui', '=', $maDonViGui)->get();
+        $output = "";
+
+        $i = 0;
+
+        foreach($vanBanDis as $vanBanDi) {
+            $output .= '
+            <tr style="text-align: center">
+                <th scope="row">'.++$i.'</th>
+                <td>'.$vanBanDi->tenFileVanBan.'</td>
+                <td>'.$vanBanDi->ngayBanHanh.'</td>
+                <td>'.$vanBanDi->ngayHetHieuLuc.'</td>
+                <td>
+                    <a class="btn btn-info text-light" href="detail/'.$vanBanDi->maVanBanDi.'">Xem chi tiết</a>
+                    <a class="btn btn-danger" id="deleteButton" data-attr="deleteView/'.$vanBanDi->maVanBanDi.') }}" data-target="#myModal" data-toggle="modal">Xóa</a>
+                </td>
+            </tr>';
+        }
+
+        $datas = array(
+            'data' => $output
+        );
+
+        return json_encode($datas);
+    }
+
+    public function filterToDate(Request $request) {
+        $fromDate = Carbon::createFromFormat('m/d/Y', $request->fromDate)->format('Y-m-d');
+        $toDate = Carbon::createFromFormat('m/d/Y', $request->toDate)->format('Y-m-d');
+
+        $vanBanDis = DB::table('van_ban_di')->whereBetween('ngayBanHanh', [$fromDate, $toDate])->get();
+        // return json_encode($vanBanDis);
+        $output = "";
+
+        $i = 0;
+
+        foreach($vanBanDis as $vanBanDi) {
+            $output .= '
+            <tr style="text-align: center">
+                <th scope="row">'.++$i.'</th>
+                <td>'.$vanBanDi->tenFileVanBan.'</td>
+                <td>'.$vanBanDi->ngayBanHanh.'</td>
+                <td>'.$vanBanDi->ngayHetHieuLuc.'</td>
+                <td>
+                    <a class="btn btn-info text-light" href="detail/'.$vanBanDi->maVanBanDi.'">Xem chi tiết</a>
+                    <a class="btn btn-danger" id="deleteButton" data-attr="deleteView/'.$vanBanDi->maVanBanDi.') }}" data-target="#myModal" data-toggle="modal">Xóa</a>
+                </td>
+            </tr>';
+        }
+
+        $datas = array(
+            'data' => $output
+        );
+
+        return json_encode($datas);
+    }
 }

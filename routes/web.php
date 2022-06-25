@@ -66,3 +66,9 @@ Route::post('/delete/{id}', 'Client\OutDocsController@destroy')->name('xoaVanBan
 
 Route::post('/init-session', 'FoodController@initSession')->name('initSession');
 
+// Filter
+Route::post('/filterLoaiVB', 'Client\OutDocsController@filterLoaiVB')->name('filterLoaiVB');
+
+Route::post('/filterDonViGui', 'Client\OutDocsController@filterDonViGui')->name('filterDonViGui');
+
+Route::post('/filterToDate', 'Client\OutDocsController@filterToDate')->name('filterToDate');
